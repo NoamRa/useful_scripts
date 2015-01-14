@@ -1,2 +1,2 @@
-# useful_scripts
-A collection of scripts created, collected or adapted.
+# useful scripts
+Consolidating a collection of scripts created or adapted.
