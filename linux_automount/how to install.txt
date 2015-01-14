@@ -1,0 +1,22 @@
+how to install usb automount script
+
+tl;dr - 
+0 make sure there are three folders - /mnt/usbdisk3, /mnt/usbdisk4, /mnt/usbdisk5 - with proper permissions.
+1 add the udev rule file
+2 add the mount script
+3 make mount script executable 
+4 restart udev
+5 test
+
+
+step by step - 
+(as root)
+
+cp 68-custom-usb-automount.rules /etc/udev/rules.d/68-custom-usb-automount.rules
+cp usb_num.sh /usr/local/bin/usb_num.sh
+chmod a+x /usr/local/bin/usb_num.sh		#( a+x makes the file executable by any user. chmod 777 also works. )
+/sbin/start_udev
+
+
+That's it.
+To test connect HDD, wait for the disk to be avaliable and run "df -l".
