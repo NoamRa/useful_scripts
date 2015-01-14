@@ -1,0 +1,58 @@
+# udev rules to automount hotplugged usb mass storage devices.
+
+# place file in the 
+# /etc/udev/rules.d
+
+# to restart udev and load new rules - 
+# /sbin/start_udev
+
+# to monitor udev 
+# udevmonitor
+
+# --- RULES ---
+
+# for older OS (RHEL 5)
+ACTION=="add", BUS=="usb", DRIVERS=="usb-storage", RUN+="/usr/local/bin/usb_num.sh %k"
+
+# for newer OS (RHEL 6)
+# ACTION=="add", SUBSYSTEMS=="usb", ATTRS{product}=="USB Mass Storage", RUN+="/usr/local/bin/usb_num.sh %k"
+
+
+
+
+
+
+
+# --- START THOUGHTS AND IDEAS ---
+
+# http://reactivated.net/writing_udev_rules.html
+# http://linuxconfig.org/automatically-mount-usb-external-drive-with-autofs
+# http://linux.die.net/man/8/udevadm
+
+# ll /dev/disk/by-label/
+# ll /dev/disk/by-id/
+# usb-HDD_USB_Mass_Storage_0000000000F4-0:0-part1 -> ../../sdd1
+# usb-HDD_USB_Mass_Storage_0000000000F4-0:1-part1 -> ../../sde1
+
+# RELEVANT RESULTES
+# S: disk/by-id/usb-HDD_USB_Mass_Storage_0000000000F4-0:0-part1
+# E: ID_MODEL=USB_Mass_Storage
+# E: ID_SERIAL=HDD_USB_Mass_Storage_0000000000F4-0:0
+# E: ID_BUS=usb
+# E: ID_USB_DRIVER=usb-storage
+# E: UDISKS_PARTITION_SIZE=2000397885440
+
+# MAYBE MAP SOMETHINK LIKE - 
+# usb-HDD_USB_Mass_Storage_*:0-part1 -> /mnt/usbdisk3
+# usb-HDD_USB_Mass_Storage_*:1-part1 -> /mnt/usbdisk4
+
+# ADDITIONAL RULES?
+# ID_USB_DRIVER=usb-storage
+# ID_MODEL=USB_Mass_Storage
+
+# udevadm info -a -n /dev/sdd1     (udevinfo command is N/A in RHEL6)
+# udevadm info -a -p /sys/block/sdd/sdd1
+
+# SUBSYSTEMS=="usb", ATTRS{product}=="USB Mass Storage", SYMLINK+="/mnt/usbdisk3" 
+
+# --- END THOUGHTS AND IDEAS ---
