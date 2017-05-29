@@ -1,0 +1,1 @@
+ffmpeg.exe -i "abc (%d).jpg" -start_number 1234 -r 5 -crf 12 -s 1920x1280 -vcodec libx264 out.mp4
