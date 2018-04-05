@@ -3,6 +3,7 @@
 
 # test connnection time to multiple IPs or addresses
 # writes results to csv
+# use plot_internet_connection.py to see results in graph
 
 import csv
 import httplib
